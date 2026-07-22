@@ -780,14 +780,12 @@ class OllamaWebAgent(FlowLauncher):
             }
         ]
     
-    def copy_answer(self, answer: str) -> List[Dict[str, Any]]:
-        """Copy answer to clipboard"""
-        try:
-            from flowlauncher import FlowLauncherAPI
-            FlowLauncherAPI.copy_to_clipboard(answer, show_notification=False)
-        except Exception as e:
-            print(f"Error copying: {e}", file=sys.stderr)
-        return []
+    def copy_answer(self, answer: str) -> dict:
+    """Copy answer to clipboard"""
+    return {
+        "method": "Flow.Launcher.CopyToClipboard",
+        "parameters": [answer]
+    }
 
     def open_response(self, text: str = "") -> List[Dict[str, Any]]:
         """Display full response - kept for backward compatibility"""
